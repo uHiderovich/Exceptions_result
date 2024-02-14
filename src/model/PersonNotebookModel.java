@@ -12,6 +12,7 @@ public class PersonNotebookModel implements iPersonNotebookModel {
     public Person parsePersonData(String personData) throws Exception {
         List<String> personDataList = Arrays.asList(personData.split(" "));
         // Иванов Иван Иванович 01.01.2001 +79999999999 М
+        // Петров Иван Иванович 01.01.2001 +79999999999 М
         try {
             String name = personDataList.get(0) + " " + personDataList.get(1) + " " + personDataList.get(2);
 
@@ -32,14 +33,10 @@ public class PersonNotebookModel implements iPersonNotebookModel {
         int COUNT_DATA_PARTS = 6;
         int currentPartsCount = personData.split(" ").length;
         if (currentPartsCount != COUNT_DATA_PARTS) {
-            StringBuilder message = new StringBuilder("Неверный формат данных. Введено ");
-            message.append(currentPartsCount);
-            message.append(" частей, ожидалось ");
-            message.append(COUNT_DATA_PARTS);
-            message.append(".");
-            message.append("Сверьтесь с примером ввода данных: 'Фамилия Имя Отчество дата_рождения номер_телефона пол'.");
-
-            throw new DataFormatException(message.toString());
+            throw new DataFormatException(
+                "Неверный формат данных. Сверьтесь с примером ввода данных: " +
+                "'Фамилия Имя Отчество дата_рождения номер_телефона пол'."
+            );
         }
     }
 
@@ -47,7 +44,7 @@ public class PersonNotebookModel implements iPersonNotebookModel {
     public void validateName(String name) throws PersonNameException {
         List<String> nameParts = Arrays.asList(name.split(" "));
         if (nameParts.size() != 3) {
-            throw new PersonNameException("Имя должно содержать три части: Фамилия, Имя, Отчество.");
+            throw new PersonNameException("Имя должно содержать: Фамилия, Имя, Отчество.");
         }
     }
 
